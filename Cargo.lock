@@ -1556,6 +1556,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "tech-week-api"
+version = "0.1.0"
+dependencies = [
+ "argon2",
+ "axum",
+ "dotenvy",
+ "jsonwebtoken",
+ "serde",
+ "sqlx",
+ "tokio",
+]
+
+[[package]]
 name = "thiserror"
 version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1848,19 +1861,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49757b3c82ebf16c57d69365a142940b384176c24df52a087fb748e2085359ea"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "week-tech-api"
-version = "0.1.0"
-dependencies = [
- "argon2",
- "axum",
- "dotenvy",
- "jsonwebtoken",
- "serde",
- "sqlx",
- "tokio",
 ]
 
 [[package]]

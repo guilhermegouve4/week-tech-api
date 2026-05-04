@@ -34,7 +34,6 @@
 - `200`
 - `400` `{ "error": "missing_fields" }`
 - `400` `{ "error": "invalid_ra" }`
-- `422` `{ "error": "student_registration: expected number" }`
 
 ---
 
@@ -49,7 +48,6 @@
 - `200`
 - `400` `{ "error": "invalid_ra" }`
 - `404` `{ "error": "ra_not_found" }`
-- `422` `{ "error": "student_registration: expected number" }`
 
 ---
 
@@ -62,7 +60,7 @@
 }
 ```
 
-- `200` `{ "token": "eyJ..." }`
+- `200`
 - `400` `{ "error": "missing_fields" }`
 - `401` `{ "error": "invalid_credentials" }`
 
@@ -70,16 +68,13 @@
 
 ## GET /registrations — protected (JWT)
 
-- `401` `{ "error": "unauthorized" }` — token ausente ou inválido
-
-
 ```json
 [
   {
-    "name": "string",
-    "student_registration": 253579732,
-    "course_name": "string",
-    "course_period": 1,
+    "name": "string", // 255 characters max
+    "student_registration": 253579732, // 9 chars max
+    "course_name": "string", // 255 characters max
+    "course_period": 1, // min 1, max 12
     "coffee_break": false,
     "checked_in": false
   }
@@ -90,17 +85,14 @@
 
 ## GET /projects — protected (JWT)
 
-- `401` `{ "error": "unauthorized" }` — token ausente ou inválido
-
-
 ```json
 [
   {
     "id": 1,
-    "name": "string",
-    "student_registration": 253579732,
-    "project_name": "string",
-    "description": "string"
+    "name": "string", // 255 characters max
+    "student_registration": 253579732, // 9 chars max
+    "project_name": "string", // 255 characters max
+    "description": "string" // 500 characters max
   }
 ]
 ```

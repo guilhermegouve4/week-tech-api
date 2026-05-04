@@ -8,6 +8,7 @@ use tokio::net::TcpListener;
 use dotenvy;
 use crate::handlers::admin_login;
 mod handlers;
+mod models;
 #[tokio::main]
 async fn main() {
     dotenvy::dotenv().ok();
