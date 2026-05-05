@@ -11,3 +11,4 @@ jsonwebtoken = { version = "10.3.0", features = ["rust_crypto"]}
 argon2 = { version = "0.5.3", features = ["password-hash"] }
 dotenvy = "0.15.7"
 serde = "1.0.228"
+serde_json = "1"

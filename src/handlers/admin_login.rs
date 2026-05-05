@@ -1,5 +1,7 @@
 use serde::Deserialize;
-use axum::extract::Json;
+use axum::{extract::Json, response::IntoResponse, response::Response};
+use axum::http::StatusCode;
+use serde_json::json;
 use crate::models::claims::Claims;
 use jsonwebtoken::{encode, Header, EncodingKey};
 use std::env::var;
@@ -14,7 +16,7 @@ pub struct Credential {
     password:  String
 }
 
-pub async fn admin_login(Json(body): Json<Credential>) -> String {
+pub async fn admin_login(Json(body): Json<Credential>) -> Response {
     let admin_email =
         var("ADMIN_EMAIL").expect("Could not read ADMIN_EMAIL from env");
 
@@ -22,7 +24,7 @@ pub async fn admin_login(Json(body): Json<Credential>) -> String {
         var("ADMIN_PASSWORD_HASH").expect("Could not read ADMIN_PASSWORD_HASH from env");
 
     if body.email != admin_email {
-        return "unauthorized".to_string();
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_credentials"}))).into_response();
     }
 
     let parsed_hash =
@@ -31,7 +33,7 @@ pub async fn admin_login(Json(body): Json<Credential>) -> String {
     let is_correct: bool =
         Argon2::default().verify_password(body.password.as_bytes(), &parsed_hash).is_ok();
 
-    if !is_correct {return "unauthorized".to_string();}
+    if !is_correct {return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_credentials"}))).into_response();}
 
     let header = Header::default();
 
@@ -51,5 +53,5 @@ pub async fn admin_login(Json(body): Json<Credential>) -> String {
 
     let token = encode(&header, &claims, &key).expect("Error while encoding JWT key");
 
-    return token;
+    (StatusCode::OK, Json(json!({ "token": token }))).into_response()
 }

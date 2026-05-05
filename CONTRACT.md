@@ -60,7 +60,7 @@
 }
 ```
 
-- `200`
+- `200` `{ "token": "..."}`
 - `400` `{ "error": "missing_fields" }`
 - `401` `{ "error": "invalid_credentials" }`
 
