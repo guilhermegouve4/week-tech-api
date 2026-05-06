@@ -1,8 +1,7 @@
-use serde::Deserialize;
 use axum::{extract::Json, response::IntoResponse, response::Response};
 use axum::http::StatusCode;
 use serde_json::json;
-use crate::models::claims::Claims;
+use crate::models::{claims::Claims, credential::Credential};
 use jsonwebtoken::{encode, Header, EncodingKey};
 use std::env::var;
 use argon2::{
@@ -10,11 +9,6 @@ use argon2::{
     PasswordHash,
     PasswordVerifier,
 };
-#[derive(Deserialize)]
-pub struct Credential {
-    email: String,
-    password:  String
-}
 
 pub async fn admin_login(Json(body): Json<Credential>) -> Response {
     let admin_email =
