@@ -2,6 +2,7 @@ use axum::{Json, extract::{State, Path}, http::StatusCode, response::{IntoRespon
 use sqlx::SqlitePool;
 use serde_json::json;
 use crate::models::checkin::Checkin;
+use crate::middleware::auth::AuthGuard;
 
 pub async fn checkin(
     State(pool): State<SqlitePool>,
@@ -28,6 +29,7 @@ pub async fn checkin(
 }
 
 pub async fn undo_checkin(
+    _guard: AuthGuard,
     State(pool): State<SqlitePool>,
     Path(ra): Path<String>,
 ) -> Response {

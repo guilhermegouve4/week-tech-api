@@ -67,6 +67,7 @@ pub async fn list_registrations(
 }
 
 pub async fn delete_registration(
+    _guard: AuthGuard,
     State(pool): State<SqlitePool>,
     Path(ra): Path<String>,
 ) -> Response {
